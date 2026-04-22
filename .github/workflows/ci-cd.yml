@@ -16,7 +16,7 @@ jobs:
 
     # 2. Login Docker Hub
     - name: Login Docker Hub
-      run: echo "${{@Ninjatrungdang7704}}" | docker login -u "${{hoang7704}}" --password-stdin
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
     # 3. Build backend
     - name: Build backend image
