@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Lấy code
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    # 2. Login Docker Hub
+    - name: Login Docker Hub
+      run: echo "${@Ninjatrungdang7704}" | docker login -u "${hoang7704}" --password-stdin
+
+    # 3. Build backend
+    - name: Build backend image
+      run: |
+        docker build -t hoang7704/spring-app:latest ./labOdc
+
+    - name: Push backend
+      run: docker push hoang7704/spring-app:latest
+
+    # 4. Build frontend
+    - name: Build frontend image
+      run: |
+        docker build -t hoang7704/react-app:latest ./FE
+
+    - name: Push frontend
+      run: docker push hoang7704/react-app:latest
+
+    # 5. Done
+    - name: Done
+      run: echo "Build & Push success"
